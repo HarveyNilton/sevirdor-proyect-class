@@ -7,6 +7,7 @@ const initModels = require('./models/initModels')
 const userRoute = require('./routes/user.routes')
 const postRoute = require('./routes/post.routes')
 const answerRoute = require('./routes/answer.routes')
+const errorHandlerRouter = require('./routes/errorHandle.routes')
 
 const app = express()
 app.use(cors())
@@ -16,9 +17,9 @@ app.use(userRoute)
 app.use(postRoute)
 app.use(answerRoute)
 
-app.use((err,req,res,next) =>{
-    res.status(400).json(err)
-})
+errorHandlerRouter(app)
+
+
 
 const PORT = 8000
 

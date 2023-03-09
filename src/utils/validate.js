@@ -5,7 +5,13 @@ const validateResult = (req, res, next) => {
         validationResult(req).throw()
         return next()
     } catch (error) {
-        res.status(400).json({ error: error.array() })
+
+        next({
+            status: 400,
+            name: "Validation error",
+            message: error.array().map(e => e.msg)
+            //mensaje: error.array().map(e => e.message).join
+        })
     }
 }
 
