@@ -7,23 +7,18 @@ const initModels = require('./models/initModels')
 const userRoute = require('./routes/user.routes')
 const postRoute = require('./routes/post.routes')
 const answerRoute = require('./routes/answer.routes')
+const categoryRouter = require('./routes/category.routes')
 const errorHandlerRouter = require('./routes/errorHandle.routes')
 
+
 const app = express()
+
+const PORT = 8000
+initModels()
+
 app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
-app.use(userRoute)
-app.use(postRoute)
-app.use(answerRoute)
-
-errorHandlerRouter(app)
-
-
-
-const PORT = 8000
-
-initModels()
 
 db.authenticate()
     .then(() => {
@@ -39,6 +34,14 @@ db.sync({ alter: true })
     .catch((error) => console.log(error))
 
     
+app.use(userRoute)
+app.use(postRoute)
+app.use(answerRoute)
+app.use(categoryRouter)
+
+errorHandlerRouter(app)
+
+
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el ${PORT
         }`);
