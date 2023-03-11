@@ -48,6 +48,7 @@ class UsersServices {
         }
     }
 
+    // Autentification Users
     static async getUser(email) {
         try {
             const user = await User.findOne({

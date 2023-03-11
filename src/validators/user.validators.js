@@ -29,7 +29,7 @@ const craeteUserValidator = [
 
 const editUserValidator = [
     param('id').isInt().withMessage('el Id debe ser un numero entero'),
-    check('name', 'Error con el campo username')
+    check('username', 'Error con el campo username')
         .isString()
         .exists().withMessage('No se encuentra el nombre para el usuario')
         .notEmpty().withMessage('El nombre no debe ser un string vacio'),
