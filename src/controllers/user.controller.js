@@ -1,4 +1,5 @@
 const UsersServices = require("../services/user.services")
+const bcrypt = require("bcrypt")
 
 
 const getUserAll = async (req, res, next) => {

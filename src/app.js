@@ -8,7 +8,9 @@ const userRoute = require('./routes/user.routes')
 const postRoute = require('./routes/post.routes')
 const answerRoute = require('./routes/answer.routes')
 const categoryRouter = require('./routes/category.routes')
+const authRouter = require('./routes/auth.routes')
 const errorHandlerRouter = require('./routes/errorHandle.routes')
+
 
 
 const app = express()
@@ -38,6 +40,7 @@ app.use(userRoute)
 app.use(postRoute)
 app.use(answerRoute)
 app.use(categoryRouter)
+app.use(authRouter)
 
 errorHandlerRouter(app)
 
