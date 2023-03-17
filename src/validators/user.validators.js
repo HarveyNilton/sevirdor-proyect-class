@@ -39,7 +39,7 @@ const editUserValidator = [
         .exists().withMessage('No se encuentra el nombre para el usuario')
         .notEmpty().withMessage('El nombre no debe ser un string vacio'),
 
-    check('email', 'El correp no se puede cambiar').not().exists(),
+    check('email', 'El correo no se puede cambiar').not().exists(),
 
     (req, res, next) => {
         validateResult(req, res, next)

@@ -11,8 +11,8 @@ const autentificate = (req,res,next) =>{
         })
     }
     try {
-        const decoids = jwt.verify(token,'node-express',{algorithms: 'HS512'})
-        req.userInfo = decoids
+        const decoded = jwt.verify(token,"nodeexpress",{algorithms: "HS512"})
+        req.user = decoded
         next();
     } catch (error) {
         res.status(400).json(error)

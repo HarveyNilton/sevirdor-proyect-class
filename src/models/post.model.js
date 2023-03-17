@@ -17,15 +17,15 @@ const Post = db.define("posts",{
         type: DataTypes.TEXT,
         allowNull:false
     },
-    user_id:{
+    userId:{
         type:DataTypes.INTEGER,
         allowNull:false,
-        /*field:"user_id"*/
+        field:"user_id"
     },
-    category_id:{
+    categoryId:{
         type:DataTypes.INTEGER,
         allowNull:false,
-       /* field:"categoty_id"*/
+       field:"categoty_id"
     }
    
 },{

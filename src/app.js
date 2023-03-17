@@ -17,7 +17,7 @@ const transporter = require('./utils/mailer')
 
 const app = express()
 
-const PORT = 8000
+const PORT = 7000
 
 
 initModels()
@@ -33,7 +33,7 @@ db.authenticate()
     .catch((error) => console.log(error));
 
 /*{force:true}*/
-db.sync({ force: true })
+db.sync({ alter: true })
     .then(() => {
         console.log("Base de datos sincronizada");
     })

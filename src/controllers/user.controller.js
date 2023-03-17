@@ -28,12 +28,12 @@ const createUser = async (req, res, next) => {
             username
         })
         await transporter.sendMail({
-            to: newUser.email,
+            to: result.email,
             from: 'harveynilto@gmail.com',
             subject: 'Verifica tu correo electronico',
-            html: `<h1>Welcome ${newUser.username} to the app</h1>
+            html: `<h1>Welcome ${result.username} to the app</h1>
             <p>Es necesario que verifique su correo</p>
-            <a href="http://localhost:5173/verify?token=${token}" target="_blank"> validar correo </a>`
+            <a href="http://localhost:5173/#/verify?token=${token}" target="_blank"> validar correo </a>`
         })
 
         

@@ -13,15 +13,15 @@ const Answer = db.define("answers", {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    user_id: {
+    userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-       /* field: "user_id"*/
+       field: "user_id"
     },
-    post_id: {
+    postId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        /*field: "post_id"*/
+        field: "post_id"
     }
 },{
     timestamps:true,

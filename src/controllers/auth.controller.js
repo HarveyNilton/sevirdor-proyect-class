@@ -1,14 +1,13 @@
 const UsersServices = require("../services/user.services")
 const bcrypt = require('bcrypt')
 const AuthServices = require("../services/auth.services")
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 
 const userLogin = async (req, res, next) => {
     try {
         const { email, password } = req.body
         const user = await UsersServices.getUser(email)
-
         if (!user) {
             return next({
                 status: 400,
@@ -16,7 +15,6 @@ const userLogin = async (req, res, next) => {
                 error: "User not found"
             })
         }
-
 
         const isValid = await bcrypt.compare(password, user.password)
         if (!isValid) {
@@ -27,6 +25,7 @@ const userLogin = async (req, res, next) => {
             })
         }
 
+        
         if (!user.emailVerified) {
             return next({
                 status: 400,
@@ -34,14 +33,15 @@ const userLogin = async (req, res, next) => {
                 error: "Email verification"
             })
         }
-
-        const { id, email: userEmail, username, lastname } = user
-        const token = AuthServices.getToken({ id, userEmail, username, lastname })
+      
+        const { id, name, username, lastname } = user
+        const token = AuthServices.getToken({ id, name,lastname,username})
         res.json({
             id,
-            userEmail,
-            username,
+            name,
             lastname,
+            username,
+            email,
             token
         })
 
@@ -53,10 +53,13 @@ const userLogin = async (req, res, next) => {
 const verifyEmail = async (req, res, next) => {
     try {
         const { token } = req.body
-        const userData = await jwt.verify(token,"node-express",{
-            algorithm: 'HS512'
+  
+
+        const userData = await jwt.verify(token,"nodeexpress",{
+            algorithms: "HS512"
         })
-        const user = UsersServices.getUser(userData.email)
+       
+      const user = UsersServices.getUser(userData.email)
         if (user.emailVerified) {
             return next({
                 status: 400,
@@ -66,9 +69,10 @@ const verifyEmail = async (req, res, next) => {
         }
 
        await UsersServices.update(userData.id,{
-        emailVerified : true
+        emailVerified : true,
        })
-     res.status(204).send()
+       
+     res.status(204).send(e)
      
     } catch (error) {
         next({

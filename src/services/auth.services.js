@@ -5,11 +5,11 @@ class AuthServices {
 
     static getToken(payload){
         try {
-            const tpken = jwt.sign(payload,'node-express',{
-                algorithm: 'HS512',
-                expiresIn: '5m'
+            const token = jwt.sign(payload,'nodeexpress',{
+                algorithm: "HS512",
+                expiresIn: "1d"
             })
-            return tpken
+            return token
         } catch (error) {
             throw error
         }
