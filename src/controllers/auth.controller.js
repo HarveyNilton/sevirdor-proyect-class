@@ -1,5 +1,8 @@
 const UsersServices = require("../services/user.services")
 const bcrypt = require('bcrypt')
+const AuthServices = require("../services/auth.services")
+const jwt = require("jsonwebtoken")
+
 
 const userLogin = async (req, res, next) => {
     try {
@@ -14,6 +17,7 @@ const userLogin = async (req, res, next) => {
             })
         }
 
+
         const isValid = await bcrypt.compare(password, user.password)
         if (!isValid) {
             return next({
@@ -23,12 +27,22 @@ const userLogin = async (req, res, next) => {
             })
         }
 
-        const {id, email:userEmail,username,lastname} = user
+        if (!user.emailVerified) {
+            return next({
+                status: 400,
+                message: "User email is not verified",
+                error: "Email verification"
+            })
+        }
+
+        const { id, email: userEmail, username, lastname } = user
+        const token = AuthServices.getToken({ id, userEmail, username, lastname })
         res.json({
-           id,
-           userEmail,
-           username,
-           lastname
+            id,
+            userEmail,
+            username,
+            lastname,
+            token
         })
 
     } catch (error) {
@@ -36,6 +50,36 @@ const userLogin = async (req, res, next) => {
     }
 }
 
+const verifyEmail = async (req, res, next) => {
+    try {
+        const { token } = req.body
+        const userData = await jwt.verify(token,"node-express",{
+            algorithm: 'HS512'
+        })
+        const user = UsersServices.getUser(userData.email)
+        if (user.emailVerified) {
+            return next({
+                status: 400,
+                message: "User is already verified",
+                errorName: "Failed to verify email"
+            })
+        }
+
+       await UsersServices.update(userData.id,{
+        emailVerified : true
+       })
+     res.status(204).send()
+     
+    } catch (error) {
+        next({
+            status: 400,
+            message: "Invalid or expired token",
+            errorName: error
+        })
+    }
+}
+
 module.exports = {
     userLogin,
+    verifyEmail
 }

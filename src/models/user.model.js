@@ -32,7 +32,11 @@ const User = db.define("users", {
     password: {
         type: DataTypes.STRING,
         allowNull: false
-    }
+    },
+    emailVerified: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      }
 }, {
     hooks: {
         beforeCreate: async (newUser) => {

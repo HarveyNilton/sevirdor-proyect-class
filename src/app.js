@@ -11,11 +11,15 @@ const categoryRouter = require('./routes/category.routes')
 const authRouter = require('./routes/auth.routes')
 const errorHandlerRouter = require('./routes/errorHandle.routes')
 
+const transporter = require('./utils/mailer')
+
 
 
 const app = express()
 
 const PORT = 8000
+
+
 initModels()
 
 app.use(cors())
@@ -29,13 +33,13 @@ db.authenticate()
     .catch((error) => console.log(error));
 
 /*{force:true}*/
-db.sync({ alter: true })
+db.sync({ force: true })
     .then(() => {
         console.log("Base de datos sincronizada");
     })
     .catch((error) => console.log(error))
 
-    
+
 app.use(userRoute)
 app.use(postRoute)
 app.use(answerRoute)
