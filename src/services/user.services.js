@@ -25,7 +25,7 @@ class UsersServices {
     }
 
     /*attributes:['id','name','lastname','username','email','password']*/
-    static async update(data, id) {
+    static async update(id, data) {
         try {
             const result = await User.update(data, {
                 where: { id }

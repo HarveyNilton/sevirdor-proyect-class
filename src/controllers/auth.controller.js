@@ -53,7 +53,6 @@ const userLogin = async (req, res, next) => {
 const verifyEmail = async (req, res, next) => {
     try {
         const { token } = req.body
-  
 
         const userData = await jwt.verify(token,"nodeexpress",{
             algorithms: "HS512"
@@ -72,7 +71,7 @@ const verifyEmail = async (req, res, next) => {
         emailVerified : true,
        })
        
-     res.status(204).send(e)
+     res.status(204).send()
      
     } catch (error) {
         next({

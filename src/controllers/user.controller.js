@@ -49,7 +49,7 @@ const editUser = async (req, res, next) => {
         // const data = req.body
         // const result = await UsersServices.update(data,id)
         const { name, lastname } = req.body
-        const result = await UsersServices.update({ name, lastname }, id)
+        const result = await UsersServices.update(id,{ name, lastname })
         res.status(204).json(result)
     } catch (error) {
         next(error)

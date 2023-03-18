@@ -5,9 +5,12 @@ const User = require("../models/user.model")
 
 class PostsServices {
 
-    static async postsAll() {
+    static async postsAll(query) {
         try {
             const result = await Post.findAll({
+                where: {
+                    categoryId: query
+                },
                 attributes: { exclude: ['category_id', 'user_id'] },
                 include: [
                     {
