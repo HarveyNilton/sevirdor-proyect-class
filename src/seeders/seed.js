@@ -12,7 +12,8 @@ const users = [
     { username: 'Diana3654', email: "diana@academlo.com", emailVerified: true, password: '12345679' },
     { username: 'JuanGarcia', email: "juan@academlo.com", emailVerified: true, password: '12345679' },
     { username: 'PabloPra', email: "pablo@academlo.com", emailVerified: true, password: '12345679' },
-    { username: 'CarlosBod', email: "carlos@academlo.com", emailVerified: true, password: '12345679' }
+    { username: 'CarlosBod', email: "carlos@academlo.com", emailVerified: true, password: '12345679' },
+    { username: 'Cesarin', email: 'cesar@academlo.com', emailVerified: true, password: '1234567' }
 ]
 
 const categories = [
@@ -33,6 +34,15 @@ const posts = [
 
 ]
 
+
+for (let i = 0; i < 1000; i++) {
+    posts.push({
+      title: `Pregunta sobre basse de datos ${i + 1}`,
+      description: "shalala shalala shala shalalala",
+      userId: (i % 6) + 1, // 2, 3 4 5 6 1
+      categoryId: 7,
+    });
+  }
 
 db.sync({ force: true })
     .then(
