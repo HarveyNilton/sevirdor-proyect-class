@@ -11,13 +11,14 @@ const categoryRouter = require('./routes/category.routes')
 const authRouter = require('./routes/auth.routes')
 const errorHandlerRouter = require('./routes/errorHandle.routes')
 
-const transporter = require('./utils/mailer')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDoc = require('./swagger.json')
 
 
 
 const app = express()
 
-const PORT = 7000
+const PORT = process.env.PORT
 
 
 initModels()
@@ -39,6 +40,7 @@ db.sync({ alter: true })
     })
     .catch((error) => console.log(error))
 
+app.use('/api/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
 
 app.use(userRoute)
 app.use(postRoute)
